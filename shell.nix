@@ -8,5 +8,6 @@ stdenv.mkDerivation {
   ];
 
   NODE_ENV = "development";
+  PUBLIC_DOMAIN = "/";
 }
 
