@@ -46,13 +46,13 @@ interface CurrentTypeLabelProps {
 function CurrentTypeLabel({ type }: CurrentTypeLabelProps) {
   switch (type) {
     case SessionType.work: {
-      return <>get work done during</>;
+      return <>are working during</>;
     }
     case SessionType.shortbreak: {
-      return <>get a shortbreak</>;
+      return <>are taking a short break</>;
     }
     case SessionType.longbreak: {
-      return <>get a longbreak</>;
+      return <>are taking a long break</>;
     }
   }
 }
