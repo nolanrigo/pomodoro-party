@@ -20,7 +20,7 @@ export function App() {
       </div>
       <div className="max-w-3xl mx-auto">
         <h2 className="mb-8 text-2xl font-extrabold text-gray-800 tracking-light leading-8">
-          You're not alone
+          You're doing that with
         </h2>
       </div>
       <Participants />
