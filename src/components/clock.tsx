@@ -24,7 +24,7 @@ export function Clock(_: ClockProps) {
         <div className="text-3xl font-light">
           <CurrentTypeLabel type={type} />
         </div>
-        <div className="mt-6 font-medium tracking-normal text-9xl">
+        <div className="mt-6 text-6xl font-medium tracking-normal sm:text-9xl">
           {duration}
         </div>
 
