@@ -1,7 +1,7 @@
 import Avatar from "avataaars";
-import React, { useContext } from "react";
+import React from "react";
 import { Participant } from "../models/participant";
-import { UserId } from "./auth";
+import { useMe } from "./me";
 
 interface ParticipantAvatarProps {
   participant: Participant;
@@ -9,7 +9,7 @@ interface ParticipantAvatarProps {
 
 export function ParticipantAvatar({ participant }: ParticipantAvatarProps) {
   const { name, avatar, id } = participant;
-  const userId = useContext(UserId);
+  const me = useMe();
 
   return (
     <div className="flex flex-col items-center block w-full rounded-md">
@@ -32,7 +32,7 @@ export function ParticipantAvatar({ participant }: ParticipantAvatarProps) {
       />
       <h4 className="mt-2 text-sm tracking-tight text-900-100">
         <span className="font-extrabold">{name}</span>{" "}
-        {userId && id === userId ? "(you)" : null}
+        {me && me.id === id ? "(you)" : null}
       </h4>
     </div>
   );

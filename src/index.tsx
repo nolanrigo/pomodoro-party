@@ -1,16 +1,16 @@
 import React, { StrictMode } from "react";
 import { render } from "react-dom";
 import { App } from "./components/app";
-import { Auth } from "./components/auth";
-import { Firebase } from "./components/firebase";
+import { MeProvider } from "./components/me";
+import { fuego, FuegoProvider } from "./fuego";
 
 render(
   <StrictMode>
-    <Firebase>
-      <Auth>
+    <FuegoProvider fuego={fuego}>
+      <MeProvider>
         <App />
-      </Auth>
-    </Firebase>
+      </MeProvider>
+    </FuegoProvider>
   </StrictMode>,
   document.getElementById("❤️"),
 );

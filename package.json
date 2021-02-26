@@ -2,6 +2,7 @@
   "name": "pomodoro.party",
   "version": "0.1.0",
   "dependencies": {
+    "@nandorojo/swr-firestore": "^0.16.0",
     "@nolanrigo/env": "^0.1.2",
     "@react-hook/window-size": "^3.0.7",
     "avataaars": "^1.2.1",

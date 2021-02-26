@@ -1,36 +1,22 @@
-import React, { MouseEventHandler, useContext, useEffect } from "react";
-import { useObjectVal } from "react-firebase-hooks/database";
+import { update } from "@nandorojo/swr-firestore";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Participant } from "../models/participant";
-import { FirebaseContext } from "./firebase";
 
 export interface ProfileUpdateProps {
-  id: string;
-  onClose: MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  me: Participant;
+  onClose: () => void;
 }
 
 interface Form {
   name: string;
 }
 
-export function ProfileUpdate({ id, onClose }: ProfileUpdateProps) {
-  const firebase = useContext(FirebaseContext);
-  const ref = firebase.database().ref(`participants/${id}`);
-
-  const [me, loading, err] = useObjectVal<Participant>(ref);
-
-  const { register, handleSubmit, setValue } = useForm<Form>({
-    defaultValues: { name: me?.name },
+export function ProfileUpdate({ me, onClose }: ProfileUpdateProps) {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { register, handleSubmit } = useForm<Form>({
+    defaultValues: { name: me.name },
   });
-
-  useEffect(
-    function () {
-      if (me) {
-        setValue("name", me.name);
-      }
-    },
-    [me],
-  );
 
   return (
     <div
@@ -41,7 +27,16 @@ export function ProfileUpdate({ id, onClose }: ProfileUpdateProps) {
     >
       <form
         onSubmit={handleSubmit(async function ({ name }) {
-          await ref.update({ name });
+          if (loading) {
+            return;
+          }
+
+          setLoading(true);
+          await update(`participants/${me.id}`, {
+            name,
+          });
+          setLoading(false);
+          onClose();
         })}
       >
         <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
@@ -70,6 +65,7 @@ export function ProfileUpdate({ id, onClose }: ProfileUpdateProps) {
         </div>
         <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
           <button
+            disabled={loading}
             type="submit"
             className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
           >

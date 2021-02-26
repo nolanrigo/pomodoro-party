@@ -1,21 +1,19 @@
-import React, { MouseEventHandler, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
+import { Participant } from "../models/participant";
 import { ProfileUpdate } from "./profile-update";
 import { Background, WormHole } from "./worm-hole";
 
 interface UserPreferencesProps {
-  id: string;
+  me: Participant;
 }
 
-export function UserPreferences({ id }: UserPreferencesProps) {
+export function UserPreferences({ me }: UserPreferencesProps) {
   const [puOpen, setPuOpen] = useState<boolean>(false);
 
-  const togglePu = useCallback<
-    MouseEventHandler<HTMLDivElement | HTMLButtonElement>
-  >(function (e) {
-    e.preventDefault();
-    e.stopPropagation();
+  const togglePu = useCallback(function () {
     setPuOpen((b) => !b);
   }, []);
+
   return (
     <div className="flex flex-col items-center my-12">
       <span className="inline-flex rounded-md shadow-sm">
@@ -30,7 +28,7 @@ export function UserPreferences({ id }: UserPreferencesProps) {
       {puOpen ? (
         <WormHole>
           <Background onClick={togglePu}>
-            <ProfileUpdate id={id} onClose={togglePu} />
+            <ProfileUpdate me={me} onClose={togglePu} />
           </Background>
         </WormHole>
       ) : null}

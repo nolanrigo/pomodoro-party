@@ -1,8 +1,8 @@
 export interface Participant {
   id: string;
-  active: boolean;
   name: string;
   avatar: Avatar;
+  lastActivityAt: number;
 }
 
 export interface Avatar {
