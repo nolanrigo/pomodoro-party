@@ -3,6 +3,7 @@ export interface Participant {
   name: string;
   avatar: Avatar;
   lastActivityAt: number;
+  soundMuted: boolean;
 }
 
 export interface Avatar {

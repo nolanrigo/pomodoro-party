@@ -10,12 +10,13 @@ export interface ProfileUpdateProps {
 
 interface Form {
   name: string;
+  soundMuted: boolean;
 }
 
 export function ProfileUpdate({ me, onClose }: ProfileUpdateProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const { register, handleSubmit } = useForm<Form>({
-    defaultValues: { name: me.name },
+    defaultValues: { name: me.name, soundMuted: me.soundMuted },
   });
 
   return (
@@ -26,7 +27,7 @@ export function ProfileUpdate({ me, onClose }: ProfileUpdateProps) {
       aria-labelledby="modal-headline"
     >
       <form
-        onSubmit={handleSubmit(async function ({ name }) {
+        onSubmit={handleSubmit(async function ({ name, soundMuted }) {
           if (loading) {
             return;
           }
@@ -34,6 +35,7 @@ export function ProfileUpdate({ me, onClose }: ProfileUpdateProps) {
           setLoading(true);
           await update(`participants/${me.id}`, {
             name,
+            soundMuted,
           });
           setLoading(false);
           onClose();
@@ -60,6 +62,22 @@ export function ProfileUpdate({ me, onClose }: ProfileUpdateProps) {
                   placeholder="your name"
                 />
               </div>
+            </div>
+            <div className="w-full my-5" />
+            <div className="flex items-center mb-2">
+              <input
+                id="soundMuted"
+                name="soundMuted"
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 form-checkbox transition duration-150 ease-in-out"
+                ref={register}
+              />
+              <label
+                htmlFor="soundMuted"
+                className="block ml-2 text-sm text-gray-900 leading-5"
+              >
+                Sound muted
+              </label>
             </div>
           </div>
         </div>

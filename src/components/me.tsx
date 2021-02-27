@@ -58,6 +58,7 @@ export function MeProvider({ children }: MeProviderProps) {
           await set<Participant>(`participants/${id}`, {
             name: "Minion",
             avatar: generateAvatar(),
+            soundMuted: false,
           });
         }
 
