@@ -3,11 +3,13 @@ import React from "react";
 import { colorFromSessionType } from "../helpers/color-from-session-type";
 import { SessionType } from "../models/session";
 import { useClock } from "./use-clock";
+import { useRingOnChange } from "./use-ring-on-change";
 
 interface ClockProps {}
 
 export function Clock(_: ClockProps) {
   const { minutes, seconds, type, nextType } = useClock();
+  useRingOnChange([minutes === 0 && seconds === 0]);
 
   const duration = `${minutes
     .toString()
